@@ -35,6 +35,8 @@ const navigateTo = (url) => {
   router();
 };
 
+window.addEventListener('popstate', router);
+
 document.addEventListener('DOMContentLoaded', () => {
   document.body.addEventListener('click', (evt) => {
     if (evt.target.matches('[data-link]')) {
