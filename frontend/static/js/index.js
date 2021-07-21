@@ -27,9 +27,21 @@ const router = async () => {
   }
 
   match.route.view();
-  // console.log();
+};
+
+// This function prevents page refresh on hyperlink navigation
+const navigateTo = (url) => {
+  window.history.pushState(null, null, url);
+  router();
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.body.addEventListener('click', (evt) => {
+    if (evt.target.matches('[data-link]')) {
+      evt.preventDefault();
+      navigateTo(evt.target.href);
+    }
+  });
+
   router();
 });
