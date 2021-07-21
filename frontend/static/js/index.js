@@ -4,13 +4,15 @@
 //        without extension, the request will go to express server
 //        giving error in browser
 import Dashboard from './views/Dashboard.js';
+import Posts from './views/Posts.js';
+import Settings from './views/Settings.js';
 
 // Client side router
 const router = async () => {
   const routes = [
     { path: '/', View: Dashboard },
-    // { path: '/posts', View: () => { console.log('Viewing posts'); } },
-    // { path: '/settings', View: () => { console.log('Viewing settings'); } },
+    { path: '/posts', View: Posts },
+    { path: '/settings', View: Settings },
   ];
 
   // Test each route for potential match
