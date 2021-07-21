@@ -1,11 +1,16 @@
 // Root of client side JS
 
+// NOTE: it is important to put '.js' extension at the end
+//        without extension, the request will go to express server
+//        giving error in browser
+import Dashboard from './views/Dashboard.js';
+
 // Client side router
 const router = async () => {
   const routes = [
-    { path: '/', view: () => { console.log('Viewing dashboard'); } },
-    { path: '/posts', view: () => { console.log('Viewing posts'); } },
-    { path: '/settings', view: () => { console.log('Viewing settings'); } },
+    { path: '/', View: Dashboard },
+    // { path: '/posts', View: () => { console.log('Viewing posts'); } },
+    // { path: '/settings', View: () => { console.log('Viewing settings'); } },
   ];
 
   // Test each route for potential match
@@ -26,7 +31,8 @@ const router = async () => {
     };
   }
 
-  match.route.view();
+  const View = new match.route.View();
+  document.querySelector('#app').innerHTML = await View.getHtml();
 };
 
 // This function prevents page refresh on hyperlink navigation
