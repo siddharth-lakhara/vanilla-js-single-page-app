@@ -1,12 +1,13 @@
 import AbstractView from './AbstractView.js';
 
-class Posts extends AbstractView {
+class PostView extends AbstractView {
   constructor(params) {
     super(params);
-    this.setTitle('Posts');
+    this.setTitle('Viewing Posts');
   }
 
   async getHtml() {
+    console.log(this.params);
     return `
       <h1>Posts</h1>
       <p>
@@ -16,4 +17,4 @@ class Posts extends AbstractView {
   }
 }
 
-export default Posts;
+export default PostView;

@@ -5,13 +5,24 @@
 //        giving error in browser
 import Dashboard from './views/Dashboard.js';
 import Posts from './views/Posts.js';
+import PostView from './views/PostView.js';
 import Settings from './views/Settings.js';
+
+const getParams = (match) => {
+  const values = match.results.slice(1);
+  const keys = Array.from(match.route.path.matchAll(/:(\w+)/g)).map((result) => result[1]);
+
+  return Object.fromEntries(keys.map((key, i) => [key, values[i]]));
+};
+
+const pathToRegex = (path) => new RegExp(`^${path.replace(/\//g, '\\/').replace(/:\w+/g, '(.+)')}$`);
 
 // Client side router
 const router = async () => {
   const routes = [
     { path: '/', View: Dashboard },
     { path: '/posts', View: Posts },
+    { path: '/posts/:id', View: PostView },
     { path: '/settings', View: Settings },
   ];
 
@@ -19,10 +30,10 @@ const router = async () => {
   // TODO: Remove this in final version
   const potentialMatches = routes.map((route) => ({
     route,
-    isMatch: window.location.pathname === route.path,
+    results: window.location.pathname.match(pathToRegex(route.path)),
   }));
 
-  let match = potentialMatches.find((potentialMatch) => (potentialMatch.isMatch));
+  let match = potentialMatches.find((potentialMatch) => (potentialMatch.results !== null));
 
   // handle 404 routes
   if (!match) {
@@ -30,10 +41,11 @@ const router = async () => {
     // TODO: create a 404 page
     match = {
       route: routes[0],
+      results: [window.location.pathname],
     };
   }
 
-  const View = new match.route.View();
+  const View = new match.route.View(getParams(match));
   document.querySelector('#app').innerHTML = await View.getHtml();
 };
 
