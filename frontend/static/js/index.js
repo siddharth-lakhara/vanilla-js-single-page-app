@@ -7,6 +7,7 @@ import Dashboard from './views/Dashboard.js';
 import Posts from './views/Posts.js';
 import PostView from './views/PostView.js';
 import Settings from './views/Settings.js';
+import NotFound from './views/NotFound.js';
 
 const getParams = (match) => {
   const values = match.results.slice(1);
@@ -24,27 +25,30 @@ const router = async () => {
     { path: '/posts', View: Posts },
     { path: '/posts/:id', View: PostView },
     { path: '/settings', View: Settings },
+    { path: '/404', View: NotFound },
   ];
 
   // Test each route for potential match
   const potentialMatch = routes.find((route) => {
-    const regexMatch = pathToRegex(route.path);
-    const isCorrectRoute = window.location.pathname.match(regexMatch);
-    return isCorrectRoute !== null;
+    const routeRegex = pathToRegex(route.path);
+    const regexMatch = window.location.pathname.match(routeRegex);
+    return regexMatch !== null;
   });
 
-  let match = {
-    route: potentialMatch,
-    results: window.location.pathname.match(pathToRegex(potentialMatch.path)),
-  };
+  let match = {};
 
   // handle 404 routes
-  if (!match) {
+  if (!potentialMatch) {
     // redirect to home page
     // TODO: create a 404 page
     match = {
-      route: routes[0],
+      route: routes[routes.length - 1],
       results: [window.location.pathname],
+    };
+  } else {
+    match = {
+      route: potentialMatch,
+      results: window.location.pathname.match(pathToRegex(potentialMatch.path)),
     };
   }
 
