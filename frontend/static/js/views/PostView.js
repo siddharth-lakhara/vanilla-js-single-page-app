@@ -11,7 +11,7 @@ class PostView extends AbstractView {
     return `
       <h1>Posts</h1>
       <p>
-        You are viewing posts!
+        You are viewing posts with id ${this.params.id}!
       </p>
     `;
   }

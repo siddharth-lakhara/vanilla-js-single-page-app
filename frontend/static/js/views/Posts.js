@@ -10,8 +10,13 @@ class Posts extends AbstractView {
     return `
       <h1>Posts</h1>
       <p>
-        You are viewing posts!
+        Have a look at my posts
       </p>
+      <ul>
+        <li><a href="/posts/1" rel="noreferrer noopener">Post 1</a></li>
+        <li><a href="/posts/1" rel="noreferrer noopener">Post 2</a></li>
+        <li><a href="/posts/1" rel="noreferrer noopener">Post 3</a></li>
+      </ul>
     `;
   }
 }

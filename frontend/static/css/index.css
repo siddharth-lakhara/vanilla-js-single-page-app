@@ -12,6 +12,7 @@ body {
     width: var(--nav-width);
     height: 100vh;
     background: #222222;
+    padding-top: 2em;
 }
 
 .nav__link {
