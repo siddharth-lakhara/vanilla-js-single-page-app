@@ -27,13 +27,16 @@ const router = async () => {
   ];
 
   // Test each route for potential match
-  // TODO: Remove this in final version
-  const potentialMatches = routes.map((route) => ({
-    route,
-    results: window.location.pathname.match(pathToRegex(route.path)),
-  }));
+  const potentialMatch = routes.find((route) => {
+    const regexMatch = pathToRegex(route.path);
+    const isCorrectRoute = window.location.pathname.match(regexMatch);
+    return isCorrectRoute !== null;
+  });
 
-  let match = potentialMatches.find((potentialMatch) => (potentialMatch.results !== null));
+  let match = {
+    route: potentialMatch,
+    results: window.location.pathname.match(pathToRegex(potentialMatch.path)),
+  };
 
   // handle 404 routes
   if (!match) {

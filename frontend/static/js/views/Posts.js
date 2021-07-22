@@ -14,8 +14,8 @@ class Posts extends AbstractView {
       </p>
       <ul>
         <li><a href="/posts/1" rel="noreferrer noopener">Post 1</a></li>
-        <li><a href="/posts/1" rel="noreferrer noopener">Post 2</a></li>
-        <li><a href="/posts/1" rel="noreferrer noopener">Post 3</a></li>
+        <li><a href="/posts/2" rel="noreferrer noopener">Post 2</a></li>
+        <li><a href="/posts/3" rel="noreferrer noopener">Post 3</a></li>
       </ul>
     `;
   }
